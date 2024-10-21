@@ -1,10 +1,13 @@
+import numpy as np
+
+
 def validCheck(board, row, col, val):
     # Check row
     if val in board[row]:
         return False
 
     # Check column
-    if val in board[:, col]:
+    if val in [board[i][col] for i in range(9)]:
         return False
 
     # Check box
