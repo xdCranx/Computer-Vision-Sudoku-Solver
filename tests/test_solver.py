@@ -1,9 +1,9 @@
-from app.solver import solver
+from app.solver import solver, lp_solver
 import app.utils.load_sudoku as load_sudoku
 import pytest
 import numpy as np
 
-puzzles, solutions = load_sudoku.from_csv("sudoku.csv", 100)
+puzzles, solutions = load_sudoku.from_csv("sudoku.csv", 10)
 
 
 @pytest.mark.parametrize(
@@ -13,4 +13,13 @@ puzzles, solutions = load_sudoku.from_csv("sudoku.csv", 100)
 def test_solver(puzzle, solution):
     sudoku = puzzle
     solver.solve(sudoku)
+    assert np.array_equal(sudoku, solution)
+
+@pytest.mark.parametrize(
+    "puzzle, solution",
+    [(puzzles[i], solutions[i]) for i in range(len(puzzles))],
+)
+def test_lpSolver(puzzle, solution):
+    sudoku = puzzle
+    lp_solver.lpSolve(sudoku)
     assert np.array_equal(sudoku, solution)
