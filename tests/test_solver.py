@@ -1,4 +1,4 @@
-from app.solver import solver, lp_solver
+from app.solver import solver, lp_solver, cp_solver
 import app.utils.load_sudoku as load_sudoku
 import pytest
 import numpy as np
@@ -23,3 +23,11 @@ def test_lpSolver(puzzle, solution):
     sudoku = puzzle
     lp_solver.lpSolve(sudoku)
     assert np.array_equal(sudoku, solution)
+
+@pytest.mark.parametrize(
+    "puzzle, solution",
+    [(puzzles[i], solutions[i]) for i in range(len(puzzles))],
+)
+def test_cpSolver(puzzle, solution):
+    cp_solver.cpSolve(puzzle)
+    assert np.array_equal(puzzle, solution)
