@@ -15,6 +15,7 @@ def test_solver(puzzle, solution):
     solver.solve(sudoku)
     assert np.array_equal(sudoku, solution)
 
+
 @pytest.mark.parametrize(
     "puzzle, solution",
     [(puzzles[i], solutions[i]) for i in range(len(puzzles))],
@@ -23,6 +24,7 @@ def test_lpSolver(puzzle, solution):
     sudoku = puzzle
     lp_solver.lpSolve(sudoku)
     assert np.array_equal(sudoku, solution)
+
 
 @pytest.mark.parametrize(
     "puzzle, solution",

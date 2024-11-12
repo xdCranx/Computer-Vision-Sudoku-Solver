@@ -28,7 +28,7 @@ def cpSolve(puzzle):
 
     solver = cp_model.CpSolver()
     status = solver.Solve(model)
-    print(status)
+    
     if status == cp_model.OPTIMAL:
         for i in line:
             for j in line:

@@ -45,17 +45,19 @@ def defaultSudokuConstraints(problem, grid_vars, rows, cols, grids, vals):
                 plp.LpConstraint(
                     e=plp.lpSum(
                         [
-                            grid_vars[(grid // 3) * 3 + row][(grid % 3) * 3 + col][value] * value
+                            grid_vars[(grid // 3) * 3 + row][(grid % 3) * 3 + col][
+                                value
+                            ]
+                            * value
                             for col in range(3)
                             for row in range(3)
                         ]
                     ),
                     sense=plp.LpConstraintEQ,
                     rhs=value,
-                    name=f"constraint_uniq_grid_{grid}_{value}"
+                    name=f"constraint_uniq_grid_{grid}_{value}",
                 )
             )
-
 
 
 def loadValues(problem, input_sudoku, grid_vars, rows, cols, vals):
@@ -73,6 +75,7 @@ def loadValues(problem, input_sudoku, grid_vars, rows, cols, vals):
                     )
                 )
 
+
 def returnSolution(grid_vars, rows, cols, vals):
     solution = []
     for row in rows:
@@ -83,6 +86,7 @@ def returnSolution(grid_vars, rows, cols, vals):
                     row_values.append(val)
         solution.append(row_values)
     return solution
+
 
 def lpSolve(puzzle):
     problem = plp.LpProblem("Sudoku_Solving")
@@ -103,5 +107,5 @@ def lpSolve(puzzle):
     problem.solve()
 
     status = plp.LpStatus[problem.status]
-    if (status == "Optimal"):
+    if status == "Optimal":
         return returnSolution(grid_vars, rows, cols, vals)
