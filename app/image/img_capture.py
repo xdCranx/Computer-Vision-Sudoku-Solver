@@ -1,9 +1,8 @@
-import time
 import cv2
 
 # from image.preprocess import preprocess
 from preprocess import preprocess
-from process import findSudokuBox
+from process import findSudokuBox, extractSudokuBox, splitIntoCells
 
 # resolution = (1920, 1080)
 resolution = (1280, 720)
@@ -19,9 +18,13 @@ def videoCapture():
     while True:
         ret, frame = cap.read()
         grey = preprocess(frame)
-        img_with_contours, polygon = findSudokuBox(grey, frame)
-        cv2.imshow("frame", img_with_contours)
-
+        corners, contour_img = findSudokuBox(grey, frame)
+        if corners is not None:
+            sudoku = extractSudokuBox(contour_img, corners)
+            cell = splitIntoCells(sudoku)
+            cv2.imshow("frame", cell[1])
+        else:
+            cv2.imshow("frame", frame)
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
     cap.release()
