@@ -29,6 +29,10 @@ def cpSolve(puzzle):
                 model.Add(vars_grid[i, j] == puzzle[i][j])
 
     solver = cp_model.CpSolver()
+
+    # multithreading
+    # solver.parameters.num_search_workers = 4
+
     status = solver.Solve(model)
 
     if status == cp_model.OPTIMAL:
