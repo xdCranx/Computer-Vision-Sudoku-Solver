@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import utils
+import image.utils as utils
 
 
 def findSudokuBox(img, org):
@@ -94,6 +94,7 @@ def createGridMask(img):
 def applyGridMask(img):
     mask = cv2.bitwise_not(createGridMask(img))
     masked_img = cv2.bitwise_and(img, img, mask=mask)
+
     return masked_img
 
 
@@ -110,3 +111,13 @@ def splitIntoCells(top_view_img):
             ]
             cells.append(cell)
     return cells
+
+
+def cleanCells(cells):
+    cleaned_cells = []
+    for cell in cells:
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (6, 6))
+        cell = cv2.morphologyEx(cell, cv2.MORPH_OPEN, kernel)
+        cell = cv2.resize(cell, (35, 35))
+        cleaned_cells.append(cell)
+    return cleaned_cells

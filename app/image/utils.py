@@ -45,3 +45,7 @@ def drawLines(img, lines, colored=False):
             cv2.line(img, pt1, pt2, __color, 6, cv2.LINE_AA)
 
         return img
+
+
+def convertTo2D(cells):
+    return [cells[i : i + 9] for i in range(0, 81, 9)]
