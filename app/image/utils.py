@@ -1,10 +1,12 @@
 import cv2
 import numpy as np
 
+
 def draw_points(image, points, color=(0, 0, 255), radius=4):
     for point in points:
         cv2.circle(image, (int(point[0]), int(point[1])), radius, color, -1)
     return image
+
 
 def sort_corners(corners):
     if corners.shape != (4, 1, 2):
@@ -23,3 +25,23 @@ def sort_corners(corners):
     return np.array([tl, tr, br, bl], dtype="float32")
 
 
+def drawLines(img, lines, colored=False):
+    if colored:
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        __color = (0, 0, 255)
+    else:
+        __color = 255
+
+    if lines is not None:
+        for i in range(0, len(lines)):
+            rho = lines[i][0][0]
+            theta = lines[i][0][1]
+            a = np.cos(theta)
+            b = np.sin(theta)
+            x0 = a * rho
+            y0 = b * rho
+            pt1 = (int(x0 + 1000 * (-b)), int(y0 + 1000 * (a)))
+            pt2 = (int(x0 - 1000 * (-b)), int(y0 - 1000 * (a)))
+            cv2.line(img, pt1, pt2, __color, 6, cv2.LINE_AA)
+
+        return img

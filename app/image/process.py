@@ -16,15 +16,14 @@ def findSudokuBox(img, org):
 
         if (
             len(approx) == 4
-            and cv2.contourArea(contour) > 3000
+            and cv2.contourArea(contour) > 300000
             and cv2.isContourConvex(approx)
         ):
             polygon = approx
             break
 
-    img_with_contours = cv2.drawContours(org, [polygon], -1, (0, 255, 0), 3)
+    return polygon, org
 
-    return polygon, img_with_contours
 
 def extractSudokuBox(img, corners):
     sorted_corners = utils.sort_corners(corners)
@@ -51,12 +50,56 @@ def extractSudokuBox(img, corners):
 
     M = cv2.getPerspectiveTransform(sorted_corners, dst)
     warp = cv2.warpPerspective(img, M, (maxWidth, maxHeight))
-    
+
     return warp
+
+
+def getGridLines(img):
+    tmp = img.copy()
+
+    row_len = img.shape[0]
+    col_len = img.shape[1]
+
+    row_size = row_len // 13
+    col_size = col_len // 13
+
+    row_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (row_size, 1))
+    col_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (1, col_size))
+
+    horizontal = cv2.erode(tmp, row_kernel)
+    horizontal = cv2.dilate(horizontal, row_kernel)
+
+    vertical = cv2.erode(tmp, col_kernel)
+    vertical = cv2.dilate(vertical, col_kernel)
+
+    grid = cv2.add(horizontal, vertical)
+
+    cv2.imshow("grid", grid)
+
+    return grid
+
+
+def createGridMask(img):
+    grid = getGridLines(img)
+    grid = cv2.dilate(
+        grid, cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3)), iterations=2
+    )
+
+    full_lines = cv2.HoughLines(grid, 0.3, np.pi / 90, 250)
+    grid_mask = utils.drawLines(grid, full_lines)
+
+    return grid_mask
+
+
+def applyGridMask(img):
+    mask = cv2.bitwise_not(createGridMask(img))
+    masked_img = cv2.bitwise_and(img, img, mask=mask)
+    return masked_img
+
 
 def splitIntoCells(top_view_img):
     cell_h = top_view_img.shape[0] // 9
-    cell_w= top_view_img.shape[1] // 9
+    cell_w = top_view_img.shape[1] // 9
 
     cells = []
     for i in range(9):
@@ -67,5 +110,3 @@ def splitIntoCells(top_view_img):
             ]
             cells.append(cell)
     return cells
-
-

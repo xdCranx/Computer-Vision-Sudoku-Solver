@@ -1,14 +1,13 @@
 import cv2
-import numpy as np
 
 
 def preprocess(img):
     grayscale = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    blur = cv2.GaussianBlur(grayscale, (9, 9), 0)
+    blur = cv2.GaussianBlur(grayscale, (5, 5), 0)
 
     thresh = cv2.adaptiveThreshold(
-        blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2
+        blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 2
     )
 
     invert = cv2.bitwise_not(thresh)
