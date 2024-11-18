@@ -50,15 +50,16 @@ def drawLines(img, lines, colored=False):
 def convertTo2D(cells):
     return [cells[i : i + 9] for i in range(0, 81, 9)]
 
+
 def sudokuFromCells(cells):
     if len(cells) != 81:
         raise ValueError("The list must contain exactly 81 image cells.")
-        
+
     rows = []
     for i in range(9):
-        row = np.hstack(cells[i * 9:(i + 1) * 9])
+        row = np.hstack(cells[i * 9 : (i + 1) * 9])
         rows.append(row)
-    
+
     sudoku_grid = np.vstack(rows)
-    
+
     return sudoku_grid

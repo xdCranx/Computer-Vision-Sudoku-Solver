@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import image.utils as utils
+from . import utils
 
 
 def findSudokuBox(img):

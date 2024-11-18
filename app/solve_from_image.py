@@ -10,7 +10,7 @@ def solveFromImage(image_path, solverMode=1, debug=False):
 
     Args:
         image_path (str): The path to the image containing the Sudoku puzzle.
-        solverMode (int, optional): The mode to use for solving the puzzle. 
+        solverMode (int, optional): The mode to use for solving the puzzle.
             (Defaults to 1):
             0 - Use the default solver.
             1 - Use the constraint programming solver.
@@ -22,16 +22,19 @@ def solveFromImage(image_path, solverMode=1, debug=False):
 
     utils.printSudokuBoard(solved)
 
+
 if __name__ == "__main__":
     if len(sys.argv) < 2 or len(sys.argv) > 4:
-        raise ValueError("Usage: python solve_from_image.py <image_path> [<solver_mode>] [<debug>]")
+        raise ValueError(
+            "Usage: python solve_from_image.py <image_path> [<solver_mode>] [<debug>]"
+        )
 
     path = sys.argv[1]
 
     if not path:
         raise ValueError("Image path must be provided")
-    
-    solverMode = 1 
+
+    solverMode = 1
     debug = False
 
     if len(sys.argv) > 2:
@@ -40,9 +43,6 @@ if __name__ == "__main__":
             raise ValueError("Invalid solver mode. Choose from 0, 1, or 2.")
 
     if len(sys.argv) > 3:
-        debug = bool(sys.argv[3].lower()) in ['true', '1', 'yes']
+        debug = bool(sys.argv[3].lower()) in ["true", "1", "yes"]
 
     solveFromImage(path, solverMode, debug)
-
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()

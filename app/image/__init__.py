@@ -9,4 +9,4 @@ from .process import (
     cleanCells,
 )
 from .char_detection import recognizeDigits, measureTime
-from .utils import convertTo2D, sudokuFromCells
+from .utils import *

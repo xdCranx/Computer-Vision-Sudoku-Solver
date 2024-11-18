@@ -1,16 +1,17 @@
 import cv2
-import image
-import image.utils
-import utils
-import solver
+import app.image as image
+import app.image.utils as image_utils
+import app.utils
+import app.solver as solver
+
 
 def detectAndSolve(img, solverMode=1, debug=False):
     """
     Detects and solves a Sudoku puzzle from an input image.
-    
+
     Args:
         img (numpy.ndarray): The input image containing the Sudoku puzzle.
-        solverMode (int, optional): The mode to use for solving the puzzle. 
+        solverMode (int, optional): The mode to use for solving the puzzle.
             (Defaults to 1):
             0 - Use the default solver.
             1 - Use the constraint programming solver.
@@ -43,7 +44,7 @@ def detectAndSolve(img, solverMode=1, debug=False):
             solved = solver.lpSolve(puzzle)
         else:
             raise ValueError("Invalid solver mode")
-        
+
         if debug:
             cv2.imshow("grey", grey)
             cv2.imshow("sudoku_box", sudoku_box)
@@ -53,7 +54,7 @@ def detectAndSolve(img, solverMode=1, debug=False):
             cv2.imshow("masked_grid", masked_grid)
             cv2.imshow("clean_sudoku", image.utils.sudokuFromCells(clean_cells))
             print("Recognized Digits:")
-            utils.printSudokuBoard(puzzle)
+            image_utils.printSudokuBoard(puzzle)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
 
