@@ -1,55 +1,48 @@
 import sys
 import cv2
-import image
-import image.utils
-import solver
 import utils
 import utils.print_sudoku_board
+from detect_and_solve import detectAndSolve
 
 
-def solveFromImage(image_path):
+def solveFromImage(image_path, solverMode=1, debug=False):
+    """Uses the detectAndSolve function to solve a Sudoku puzzle from an image.
+
+    Args:
+        image_path (str): The path to the image containing the Sudoku puzzle.
+        solverMode (int, optional): The mode to use for solving the puzzle. 
+            (Defaults to 1):
+            0 - Use the default solver.
+            1 - Use the constraint programming solver.
+            2 - Use the linear programming solver.
+        debug (bool, optional): Whether to display every step of the process.
+    """
     puzzle_image = utils.loadPhoto(image_path)
-    print(puzzle_image.shape)
+    solved = detectAndSolve(puzzle_image, solverMode, debug)
 
-    grey = image.preprocess(puzzle_image)
-    cv2.imshow("grey", grey)
-    corners = image.findSudokuBox(grey)
-
-    if corners is not None:
-        sudoku_box = image.extractSudokuBox(puzzle_image, corners)
-        # cv2.imshow("sudoku_box", sudoku_box)
-        sudoku = image.preprocess(sudoku_box)
-        # cv2.imshow("sudoku", sudoku)
-
-        grid_lines = image.getGridLines(sudoku)
-        # cv2.imshow("grid_lines", grid_lines)
-
-        mask = image.createGridMask(grid_lines)
-        # cv2.imshow("mask", mask)
-        
-        masked_grid = image.applyGridMask(sudoku, mask)
-        cv2.imshow("masked_grid", masked_grid)
-        cells = image.splitIntoCells(masked_grid)
-        clean_cells = image.cleanCells(cells)
-        clean_sudoku = image.utils.sudokuFromCells(clean_cells)
-        cv2.imshow("clean_sudoku", clean_sudoku)
-
-        recognized_digits = image.recognizeDigits(clean_cells)
-        puzzle = image.utils.convertTo2D(recognized_digits)
-        print("Recognized Digits:")
-        utils.printSudokuBoard(puzzle)
-
-        # solved = solver.cpSolve(puzzle)
-        # if solved:
-        #     utils.printSudokuBoard(solved)
-        # else:
-        #     print("No solution found")
-
+    utils.printSudokuBoard(solved)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        raise ValueError("Usage: python solve_from_image.py <image_path>")
+    if len(sys.argv) < 2 or len(sys.argv) > 4:
+        raise ValueError("Usage: python solve_from_image.py <image_path> [<solver_mode>] [<debug>]")
+
     path = sys.argv[1]
-    solveFromImage(path)
+
+    if not path:
+        raise ValueError("Image path must be provided")
+    
+    solverMode = 1 
+    debug = False
+
+    if len(sys.argv) > 2:
+        solverMode = int(sys.argv[2])
+        if solverMode not in [0, 1, 2]:
+            raise ValueError("Invalid solver mode. Choose from 0, 1, or 2.")
+
+    if len(sys.argv) > 3:
+        debug = bool(sys.argv[3].lower()) in ['true', '1', 'yes']
+
+    solveFromImage(path, solverMode, debug)
+
     cv2.waitKey(0)
     cv2.destroyAllWindows()

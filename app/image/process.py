@@ -74,8 +74,6 @@ def getGridLines(img):
 
     grid = cv2.add(horizontal, vertical)
 
-    cv2.imshow("grid", grid)
-
     return grid
 
 
