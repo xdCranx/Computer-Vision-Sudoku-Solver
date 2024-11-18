@@ -1,4 +1,4 @@
-def print_sudoku_board(board):
+def printSudokuBoard(board):
     for i in range(len(board)):
         if i % 3 == 0 and i != 0:
             print("-" * 21)

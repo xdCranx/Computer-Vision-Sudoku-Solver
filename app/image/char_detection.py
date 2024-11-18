@@ -14,7 +14,7 @@ def recognizeDigitOCR(cell):
         digit = int(char)
     else:
         cv2.imshow(char, cell)
-        # raise ValueError("Invalid digit detected: ", char)
+        raise ValueError("Invalid digit detected: ", char)
 
     return digit
 
@@ -22,7 +22,7 @@ def recognizeDigitOCR(cell):
 def recognizeDigits(cells, isOcr=True):
     digits = []
     for cell in cells:
-        if np.isclose(cell, 0).sum() / (cell.shape[0] * cell.shape[1]) >= 0.95:
+        if np.isclose(cell, 0).sum() / (cell.shape[0] * cell.shape[1]) >= 0.97:
             digits.append(0)
         else:
             if isOcr:

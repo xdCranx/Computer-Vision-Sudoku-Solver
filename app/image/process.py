@@ -79,8 +79,7 @@ def getGridLines(img):
     return grid
 
 
-def createGridMask(img):
-    grid = getGridLines(img)
+def createGridMask(grid):
     grid = cv2.dilate(
         grid, cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5)), iterations=2
     )
@@ -91,9 +90,9 @@ def createGridMask(img):
     return grid_mask
 
 
-def applyGridMask(img):
-    mask = cv2.bitwise_not(createGridMask(img))
-    masked_img = cv2.bitwise_and(img, img, mask=mask)
+def applyGridMask(img, mask):
+    mask = cv2.bitwise_not(mask)
+    masked_img = cv2.bitwise_and(img, mask)
 
     return masked_img
 
@@ -116,8 +115,10 @@ def splitIntoCells(top_view_img):
 def cleanCells(cells):
     cleaned_cells = []
     for cell in cells:
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (6, 6))
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (4, 4))
         cell = cv2.morphologyEx(cell, cv2.MORPH_OPEN, kernel)
-        cell = cv2.resize(cell, (32, 32))
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+        cell = cv2.erode(cell, kernel, iterations=1)
+        cell = cv2.resize(cell, (35, 35))
         cleaned_cells.append(cell)
     return cleaned_cells

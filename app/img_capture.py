@@ -5,8 +5,8 @@ import image.utils
 import utils.print_sudoku_board
 
 # resolution = (1920, 1080)
-# resolution = (1280, 720)
-resolution = (1024, 768)
+resolution = (1280, 960)
+# resolution = (1024, 768)
 # resolution = (800, 600)
 
 fps = 5
