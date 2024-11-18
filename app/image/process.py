@@ -3,7 +3,7 @@ import numpy as np
 import image.utils as utils
 
 
-def findSudokuBox(img, org):
+def findSudokuBox(img):
     __epsilon = 0.1
 
     contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -22,7 +22,7 @@ def findSudokuBox(img, org):
             polygon = approx
             break
 
-    return polygon, org
+    return polygon
 
 
 def extractSudokuBox(img, corners):
@@ -82,7 +82,7 @@ def getGridLines(img):
 def createGridMask(img):
     grid = getGridLines(img)
     grid = cv2.dilate(
-        grid, cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3)), iterations=2
+        grid, cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5)), iterations=2
     )
 
     full_lines = cv2.HoughLines(grid, 0.3, np.pi / 90, 250)
@@ -118,6 +118,6 @@ def cleanCells(cells):
     for cell in cells:
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (6, 6))
         cell = cv2.morphologyEx(cell, cv2.MORPH_OPEN, kernel)
-        cell = cv2.resize(cell, (35, 35))
+        cell = cv2.resize(cell, (32, 32))
         cleaned_cells.append(cell)
     return cleaned_cells

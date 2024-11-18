@@ -12,7 +12,7 @@ def preprocess(img):
 
     invert = cv2.bitwise_not(thresh)
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2, 2))
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
 
     morph = cv2.morphologyEx(invert, cv2.MORPH_OPEN, kernel)
 
