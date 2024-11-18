@@ -15,8 +15,9 @@ def recognizeDigitOCR(cell):
     else:
         cv2.imshow(char, cell)
         # raise ValueError("Invalid digit detected: ", char)
-    
+
     return digit
+
 
 def recognizeDigits(cells, isOcr=True):
     digits = []
@@ -30,6 +31,7 @@ def recognizeDigits(cells, isOcr=True):
             else:
                 print("Not implemented yet")
     return digits
+
 
 def measureTime(cells):
     start = time.time()

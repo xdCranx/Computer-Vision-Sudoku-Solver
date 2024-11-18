@@ -1,7 +1,7 @@
 from ortools.sat.python import cp_model
 
 
-def cpSolve(puzzle):
+def cpSolve(puzzle, threads=1):
     model = cp_model.CpModel()
 
     line = list(range(9))
@@ -31,7 +31,8 @@ def cpSolve(puzzle):
     solver = cp_model.CpSolver()
 
     # multithreading
-    # solver.parameters.num_search_workers = 4
+    if threads > 1:
+        solver.parameters.num_search_workers = 4
 
     status = solver.Solve(model)
 
