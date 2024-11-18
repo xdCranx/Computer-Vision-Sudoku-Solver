@@ -1,16 +1,17 @@
 import cv2
 import time
-from image.preprocess import preprocess
-from image.process import (
-    findSudokuBox,
-    extractSudokuBox,
-    applyGridMask,
-    splitIntoCells,
-    cleanCells,
-)
-from image.char_detection import recognizeDigitsOCR, measureTime
-from image.utils import convertTo2D
-import utils
+# from image.preprocess import preprocess
+# from image.process import (
+#     findSudokuBox,
+#     extractSudokuBox,
+#     applyGridMask,
+#     splitIntoCells,
+#     cleanCells,
+# )
+# from image.char_detection import measureTime
+# from image.utils import convertTo2D
+import image
+import image.utils
 import utils.print_sudoku_board
 
 # resolution = (1920, 1080)
@@ -34,20 +35,21 @@ def videoCapture():
 
         if time_curr > 1.0 / fps:
             time_diff = time.time()
-            grey = preprocess(frame)
+            grey = image.preprocess(frame)
 
-            corners, contour_img = findSudokuBox(grey, frame)
+            corners = image.findSudokuBox(grey)
             if corners is not None:
-                sudoku = extractSudokuBox(frame, corners)
-                sudoku = preprocess(sudoku)
-                grid = applyGridMask(sudoku)
-                cells = splitIntoCells(grid)
-                cleaned_cells = cleanCells(cells)
-                recognized_digits = measureTime(cleaned_cells)
-                puzzle = convertTo2D(recognized_digits)
+                sudoku = image.extractSudokuBox(frame, corners)
+                sudoku = image.preprocess(sudoku)
+                grid = image.applyGridMask(sudoku)
+                cells = image.splitIntoCells(grid)
+                cleaned_cells = image.cleanCells(cells)
+
+                recognized_digits = image.measureTime(cleaned_cells)
+                puzzle = image.utils.convertTo2D(recognized_digits)
                 utils.print_sudoku_board.print_sudoku_board(puzzle)
 
-                cv2.imshow("grid", cells[0])
+                cv2.imshow("grid", sudoku)
 
         cv2.imshow("frame", frame)
 
