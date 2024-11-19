@@ -48,7 +48,7 @@ def drawLines(img, lines, colored=False):
 
 
 def convertTo2D(cells):
-    return [cells[i : i + 9] for i in range(0, 81, 9)]
+    return np.array([cells[i : i + 9] for i in range(0, 81, 9)])
 
 
 def sudokuFromCells(cells):

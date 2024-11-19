@@ -43,6 +43,6 @@ if __name__ == "__main__":
             raise ValueError("Invalid solver mode. Choose from 0, 1, or 2.")
 
     if len(sys.argv) > 3:
-        debug = bool(sys.argv[3].lower()) in ["true", "1", "yes"]
+        debug = sys.argv[3].lower() in ["true", "1", "yes"]
 
     solveFromImage(path, solverMode, debug)

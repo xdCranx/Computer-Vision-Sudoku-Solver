@@ -37,11 +37,11 @@ def detectAndSolve(img, solverMode=1, debug=False):
         recognized_digits = image.recognizeDigits(clean_cells)
         puzzle = image.utils.convertTo2D(recognized_digits)
         if solverMode == 0:
-            solved = solver.solve(puzzle)
+            solved = solver.solve(puzzle.copy())
         elif solverMode == 1:
-            solved = solver.cpSolve(puzzle)
+            solved = solver.cpSolve(puzzle.copy())
         elif solverMode == 2:
-            solved = solver.lpSolve(puzzle)
+            solved = solver.lpSolve(puzzle.copy())
         else:
             raise ValueError("Invalid solver mode")
 
@@ -54,11 +54,11 @@ def detectAndSolve(img, solverMode=1, debug=False):
             cv2.imshow("masked_grid", masked_grid)
             cv2.imshow("clean_sudoku", image.utils.sudokuFromCells(clean_cells))
             print("Recognized Digits:")
-            image_utils.printSudokuBoard(puzzle)
+            app.utils.printSudokuBoard(puzzle)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
 
-        if solved:
+        if solved is not None:
             return solved
         else:
             raise ValueError("No solution found")
