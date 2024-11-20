@@ -34,8 +34,8 @@ def loadPhoto(path):
     puzzle_image = cv2.imread(path)
     if puzzle_image is None:
         raise ValueError("The file is not an image.")
-    puzzle_image = crop_to_target_resolution(puzzle_image)
     if puzzle_image.size // 3 > 1280 * 720:
+        puzzle_image = crop_to_target_resolution(puzzle_image)
         if puzzle_image.shape[0] > puzzle_image.shape[1]:
             puzzle_image = cv2.resize(
                 puzzle_image, (desired_resolution[1], desired_resolution[0])

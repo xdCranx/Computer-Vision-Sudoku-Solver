@@ -1,5 +1,4 @@
 import sys
-import cv2
 import utils
 import utils.print_sudoku_board
 from detect_and_solve import detectAndSolve

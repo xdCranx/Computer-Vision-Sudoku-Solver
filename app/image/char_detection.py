@@ -1,6 +1,5 @@
 import pytesseract
 import time
-import cv2
 import numpy as np
 
 
@@ -13,8 +12,7 @@ def recognizeDigitOCR(cell):
     if char.isdigit() and 1 <= int(char) <= 9:
         digit = int(char)
     else:
-        cv2.imshow(char, cell)
-        raise ValueError("Invalid digit detected: ", char)
+        raise ValueError("Invalid digit detecte")
 
     return digit
 
