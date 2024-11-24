@@ -4,6 +4,8 @@ from app.recognize_sudoku import recognizeSudoku
 from app.utils.load_photo import loadPhoto
 
 
+np.set_printoptions(threshold=np.inf)
+
 @pytest.fixture
 def loaded_image(img_path):
     try:

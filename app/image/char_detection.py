@@ -11,8 +11,8 @@ def recognizeDigitOCR(cell):
     char = char.strip()
     if char.isdigit() and 1 <= int(char) <= 9:
         digit = int(char)
-    else:
-        raise ValueError("Invalid digit detecte")
+    # else:
+    #     raise ValueError("Invalid digit detected")
 
     return digit
 
