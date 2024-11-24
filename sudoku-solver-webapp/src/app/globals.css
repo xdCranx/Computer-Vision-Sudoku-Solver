@@ -1,21 +1,95 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* globals.css */
 
+/* Define light and dark mode colors using CSS variables */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --primary-light: #666666;
+  --secondary-light: #999999;
+  --primary-dark: #dadada;
+  --background-light: #e8e8e8;
+  --secondary-bg-light: #f4f4f4;
+  --background-dark: #2d2d2d;
+  --secondary-bg-dark: #3a3a3a;
+  --text-light: #666666;
+  --text-dark: #f4f4f4;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  background-color: var(--background-light);
+  color: var(--text-light);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.sudoku-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr); /* 9 equal columns */
+  grid-template-rows: repeat(9, 1fr); /* 9 equal rows */
+  width: 360px; /* Adjust width as needed */
+  height: 360px; /* Adjust height as needed */
+  border: 2px solid var(--primary-light); /* Outer border for the whole grid */
+}
+
+.sudoku-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--background-light);
+  border: 1px solid var(--primary-light); /* Border for each cell */
+  box-sizing: border-box; /* Ensure borders are included in the cell size */
+  font-size: 1.2rem;
+}
+
+.dropzone {
+  border: 2px dashed;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  align-content: center;
+  width: 360px;
+  height: 360px;
+}
+
+@media (prefers-color-scheme: light) {
+  h1, h2 {
+    color: #292522;
+  }
+  .dropzone {
+    border-color: var(--primary-light);
+    background-color: var(--secondary-bg-light);
+    color: #292522;
+
+  }
+}
+
+/* Dark mode styles using prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+  }
+
+  .dropzone {
+    border-color: var(--primary-dark);
+    background-color: var(--secondary-bg-dark);
+    color: var(--text-dark);
+  }
+
+  .sudoku-grid {
+    border-color: var(--primary-dark);
+  }
+
+  .sudoku-cell {
+    background-color: var(--secondary-bg-dark);
+    border-color: var(--primary-dark);
+  }
+}
+
+/* Thicker borders for the 3x3 subgrid cells */
+.sudoku-cell.right-border {
+  border-right-width: 3px; /* Thicker right border for 3x3 separation */
+}
+
+.sudoku-cell.bottom-border {
+  border-bottom-width: 3px; /* Thicker bottom border for 3x3 separation */
 }
