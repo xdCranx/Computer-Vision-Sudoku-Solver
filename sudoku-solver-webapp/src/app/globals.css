@@ -54,6 +54,13 @@ body {
   h1, h2 {
     color: #292522;
   }
+
+  .button {
+    background-color: var(--secondary-light);
+    border-color: var(--secondary-light);
+    color: #292522;
+  }
+
   .dropzone {
     border-color: var(--primary-light);
     background-color: var(--secondary-bg-light);
@@ -66,6 +73,12 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     background-color: var(--background-dark);
+    color: var(--text-dark);
+  }
+
+  .button {
+    background-color: var(--secondary-bg-dark);
+    border-color: var(--secondary-dark);
     color: var(--text-dark);
   }
 

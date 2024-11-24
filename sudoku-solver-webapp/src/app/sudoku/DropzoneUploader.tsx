@@ -1,11 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-const DropzoneUploader = () => {
-  const [uploadMessage, setUploadMessage] = useState("");
 
+interface DropzoneUploaderProps {
+  setSudoku: (sudoku: number[][]) => void;
+  setLoading: (loading: boolean) => void;
+  setUploadMessage: (message: string) => void;
+}
+
+const DropzoneUploader: React.FC<DropzoneUploaderProps> = ({
+  setSudoku,
+  setUploadMessage,
+  setLoading,
+}) => {
   const onDrop = async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
 
@@ -14,8 +22,9 @@ const DropzoneUploader = () => {
 
     reader.onload = async () => {
       const base64Data = (reader.result as string).split(",")[1];
+      setLoading(true);
       try {
-        const response = await fetch("/api/upload", {
+        const response = await fetch("http://localhost:8000/sudoku", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -25,9 +34,12 @@ const DropzoneUploader = () => {
         });
 
         const result = await response.json();
-        setUploadMessage(result.message || "Upload failed.");
+        setSudoku(result);
+        setUploadMessage(result.message || undefined);
       } catch {
         setUploadMessage("Failed to upload the file.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -48,7 +60,6 @@ const DropzoneUploader = () => {
       <input {...getInputProps()} />
       <h2>Drag and drop your picture here</h2>
       <p>or click to browse</p>
-      {uploadMessage && <p>{uploadMessage}</p>}
     </div>
   );
 };
