@@ -17,7 +17,6 @@ export default function Home() {
           <p style={{ fontSize: '1.25rem', }}>Upload picture of your sudoku puzzle</p>
           <Button variant="outlined" className="button">SOLVE</Button>
         </div>
-
         <Sudoku/>
       </div>
     </main>

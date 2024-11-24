@@ -6,24 +6,36 @@ import SudokuDisplay from "./SudokuDisplay";
 const Sudoku: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [uploadMessage, setUploadMessage] = useState<string>("");
-  const [sudoku, setSudoku] = useState<number[][]>([]);
+  const [sudoku, setSudoku] = useState<number[][] | null>(null);
   const [isSudokuSolved, setIsSudokuSolved] = useState<boolean>(false);
 
+  const handleReceiveSudoku = (sudoku: number[][]) => {
+    setSudoku(sudoku);
+  }
+
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div style={{ width:'50%', padding: '2.5rem', justifyItems: "center" }}>
+        <p>Loading...</p>
+      </div>
+    );
   }
   if (uploadMessage) {
     return <p>{uploadMessage}</p>;
   }
 
   return (
-    <div style={{ maxWidth: '50%', padding: '2.5rem', justifyItems: "center" }}>
-      <DropzoneUploader
-        setSudoku={setSudoku}
-        setLoading={setLoading}
-        setUploadMessage={setUploadMessage}
-      />
-      <SudokuDisplay grid={sudoku} />
+    <div style={{ width:'50%', padding: '2.5rem', justifyItems: "center" }}>
+      {sudoku 
+      ? (
+        <SudokuDisplay grid={sudoku!} />
+      ) 
+      : (
+        <DropzoneUploader
+          setSudoku={setSudoku}
+          setLoading={setLoading}
+          setUploadMessage={setUploadMessage}
+        />)}
     </div>
   )
 };

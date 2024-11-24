@@ -23,31 +23,31 @@ body {
   display: grid;
   grid-template-columns: repeat(9, 1fr); /* 9 equal columns */
   grid-template-rows: repeat(9, 1fr); /* 9 equal rows */
-  width: 360px; /* Adjust width as needed */
-  height: 360px; /* Adjust height as needed */
-  border: 2px solid var(--primary-light); /* Outer border for the whole grid */
+  width: 720px; /* Adjust width as needed */
+  height: 720px; /* Adjust height as needed */
+  border: 4px solid var(--primary-light); /* Outer border for the whole grid */
 }
 
 .sudoku-cell {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   background-color: var(--background-light);
-  border: 1px solid var(--primary-light); /* Border for each cell */
+  border: 2px solid var(--primary-light); /* Border for each cell */
   box-sizing: border-box; /* Ensure borders are included in the cell size */
   font-size: 1.2rem;
 }
 
 .dropzone {
-  border: 2px dashed;
-  border-radius: 20px;
+  border: 4px dashed;
+  border-radius: 40px;
   padding: 20px;
   text-align: center;
   align-content: center;
-  width: 360px;
-  height: 360px;
+  width: 720px;
+  height: 720px;
 }
 
 @media (prefers-color-scheme: light) {
@@ -100,9 +100,9 @@ body {
 
 /* Thicker borders for the 3x3 subgrid cells */
 .sudoku-cell.right-border {
-  border-right-width: 3px; /* Thicker right border for 3x3 separation */
+  border-right-width: 6px; /* Thicker right border for 3x3 separation */
 }
 
 .sudoku-cell.bottom-border {
-  border-bottom-width: 3px; /* Thicker bottom border for 3x3 separation */
+  border-bottom-width: 6px; /* Thicker bottom border for 3x3 separation */
 }
