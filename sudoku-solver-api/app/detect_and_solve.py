@@ -1,7 +1,7 @@
 import cv2
-from . import image
-from . import utils
-from . import solver
+import app.image as image
+import app.utils as utils
+import app.solver as solver
 
 
 def detectAndSolve(img, solverMode=1, debug=False):

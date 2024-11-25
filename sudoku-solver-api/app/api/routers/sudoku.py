@@ -15,7 +15,7 @@ async def get_placeholder_message():
 
 @router.post("/")
 async def solve_from_array(sudoku: SudokuUploadRequest):
-    # from solver.solver import solve
+    from app.solve_from_image import solveFromImage
     import base64
     decoded_sudoku = base64.b64decode(sudoku.data)
 

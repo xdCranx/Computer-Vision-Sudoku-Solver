@@ -1,6 +1,6 @@
 import sys
-from . import utils
-from .detect_and_solve import detectAndSolve
+import app.utils as utils
+from app.detect_and_solve import detectAndSolve
 
 
 def solveFromImage(image_path, solverMode=1, debug=False):
