@@ -8,7 +8,7 @@ from tensorflow.keras.layers import MaxPooling2D
 from tensorflow.keras.utils import to_categorical
 import numpy as np
 
-# (X_train, y_train), (X_test, y_test) = mnist.load_data()
+(X_train, y_train), (X_test, y_test) = mnist.load_data()
 
 import os
 import cv2
@@ -64,7 +64,7 @@ def digit_recognition_model():
 
 
 model = digit_recognition_model()
-model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=10)
+model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=20, batch_size=10)
 scores = model.evaluate(X_test, y_test, verbose=0)
-
+print(scores)
 model.save("./app/neural_network/digit_recognizer_model.keras")
