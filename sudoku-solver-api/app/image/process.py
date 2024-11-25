@@ -115,7 +115,7 @@ def cleanCells(cells):
     for cell in cells:
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (4, 4))
         cell = cv2.morphologyEx(cell, cv2.MORPH_OPEN, kernel)
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-        cell = cv2.erode(cell, kernel, iterations=1)
+        # kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+        # cell = cv2.erode(cell, kernel, iterations=1)
         cleaned_cells.append(cell)
     return cleaned_cells

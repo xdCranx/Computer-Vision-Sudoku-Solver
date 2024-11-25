@@ -23,6 +23,9 @@ def recognizeDigitOCR(cell):
 def recognizeDigitNN(cell):
     model = load_model("./app/neural_network/digit_recognizer_model.keras")
     cell = cv2.resize(cell, (28, 28))
+    # cv2.imshow("cell", cell)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
     cell = cell / 255.0
     cell = cell.reshape(1, 28, 28, 1)
     digit = model.predict(cell)
