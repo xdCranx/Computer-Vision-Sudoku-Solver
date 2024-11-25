@@ -1,7 +1,6 @@
 import sys
-import utils
-import utils.print_sudoku_board
-from detect_and_solve import detectAndSolve
+from . import utils
+from .detect_and_solve import detectAndSolve
 
 
 def solveFromImage(image_path, solverMode=1, debug=False):

@@ -1,5 +1,5 @@
 from app.solver import solver, lp_solver, cp_solver
-import app.utils.load_sudoku as load_sudoku
+from app.utils import load_sudoku
 import pytest
 import numpy as np
 
