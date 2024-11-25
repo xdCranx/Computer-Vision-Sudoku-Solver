@@ -50,6 +50,15 @@ body {
   height: 720px;
 }
 
+.loading-circle {
+  width: 100px;
+  height: 100px;
+  border: 10px solid rgba(0, 0, 0, 0.1);
+  border-top: 10px solid black;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
 @media (prefers-color-scheme: light) {
   h1, h2 {
     color: #292522;
@@ -105,4 +114,13 @@ body {
 
 .sudoku-cell.bottom-border {
   border-bottom-width: 6px; /* Thicker bottom border for 3x3 separation */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
