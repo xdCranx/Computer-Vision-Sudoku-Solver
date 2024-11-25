@@ -6,6 +6,7 @@ from app.utils.load_photo import loadPhoto
 
 np.set_printoptions(threshold=np.inf)
 
+
 @pytest.fixture
 def loaded_image(img_path):
     try:
@@ -29,7 +30,7 @@ def loaded_image(img_path):
                     [8, 0, 0, 0, 0, 6, 0, 0, 4],
                     [0, 1, 3, 0, 0, 7, 0, 6, 2],
                     [0, 0, 0, 0, 5, 0, 7, 0, 8],
-                    [9, 0, 7, 2, 0, 0, 3, 0, 0]
+                    [9, 0, 7, 2, 0, 0, 3, 0, 0],
                 ]
             ),
         ),
@@ -45,7 +46,7 @@ def loaded_image(img_path):
                     [0, 4, 0, 2, 3, 0, 0, 8, 9],
                     [0, 0, 3, 7, 8, 9, 0, 0, 0],
                     [8, 0, 0, 0, 0, 0, 5, 0, 1],
-                    [2, 0, 4, 3, 0, 5, 9, 0, 0]
+                    [2, 0, 4, 3, 0, 5, 9, 0, 0],
                 ]
             ),
         ),

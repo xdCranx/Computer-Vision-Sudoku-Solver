@@ -14,20 +14,22 @@ def recognizeDigitOCR(cell):
     char = char.strip()
     if char.isdigit() and 1 <= int(char) <= 9:
         digit = int(char)
-    # else:
-    #     raise ValueError("Invalid digit detected")
+    else:
+        raise ValueError("Invalid digit detected")
 
     return digit
 
+
 def recognizeDigitNN(cell):
-    model = load_model('./app/neural_network/digit_recognizer_model.keras')
+    model = load_model("./app/neural_network/digit_recognizer_model.keras")
     cell = cv2.resize(cell, (28, 28))
-    cell = cell/255.0
+    cell = cell / 255.0
     cell = cell.reshape(1, 28, 28, 1)
     digit = model.predict(cell)
     digit = np.argmax(digit)
 
     return digit
+
 
 def recognizeDigits(cells, isOcr=False):
     digits = []
