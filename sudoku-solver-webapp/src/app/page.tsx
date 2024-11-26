@@ -1,5 +1,5 @@
 import Sudoku from "./sudoku/Sudoku";
-import Button from "@mui/material/Button";
+import ResetButton from "./ResetButton";
 
 export default function Home() {
 
@@ -15,9 +15,9 @@ export default function Home() {
         <div style={{ maxWidth: '50%', padding: '2.5rem' }}>
           <h1 style={{ fontSize: '3.5rem', marginBottom: '10px' }}>Sudoku Solver</h1>
           <p style={{ fontSize: '1.25rem', }}>Upload picture of your sudoku puzzle</p>
-          <Button variant="outlined" className="button">SOLVE</Button>
+          <ResetButton />
         </div>
-        <Sudoku/>
+        <Sudoku />
       </div>
     </main>
   );

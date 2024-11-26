@@ -22,8 +22,11 @@ const Sudoku: React.FC = () => {
     );
   }
   if (uploadMessage) {
-    return <p>{uploadMessage}</p>;
-  }
+    return (
+      <div style={{ width: "50%", padding: "2.5rem", justifyItems: "center" }}>
+        <p>{uploadMessage}</p>
+      </div>
+    );  }
 
   return (
     <div style={{ width:'50%', padding: '2.5rem', justifyItems: "center" }}>

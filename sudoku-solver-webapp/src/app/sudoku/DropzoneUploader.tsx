@@ -36,8 +36,12 @@ const DropzoneUploader: React.FC<DropzoneUploaderProps> = ({
         const result = await response.json();
         setSudoku(result);
         setUploadMessage(result.message || undefined);
-      } catch {
-        setUploadMessage("Failed to upload the file.");
+      } catch (error) {
+        if (error instanceof Error) {
+          setUploadMessage("Error: " + error.message);
+        } else {
+          setUploadMessage("An unknown error occurred");
+        }
       } finally {
         setLoading(false);
       }
