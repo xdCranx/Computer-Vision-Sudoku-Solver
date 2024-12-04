@@ -1,0 +1,54 @@
+@startuml
+!theme materia-outline
+actor User as "Użytkownik"
+participant GUI [
+    =GUI
+    ----
+    ""Graficzny interfejs""
+]
+
+participant API [
+    =API
+    ----
+    ""Interfejs HTTP""
+    ]
+participant Processing [
+    =Moduł #1
+    ----
+    ""Przetwarzanie obrazu""
+    ]
+participant NN [ 
+    =Moduł #2
+    ----
+    ""Klasyfikacja cyfr""
+]
+participant Solver [
+    =Moduł #3
+    ----
+    ""Rozwiązanie łamigłówki""
+]
+
+
+User->GUI: zdjęcie w formacie  JPEG
+GUI->API: żądanie z enkodowanym zdjęciem
+activate GUI #DarkSalmon
+activate GUI #DarkGreen
+API->Processing: zdjęcie
+Processing->NN: tablica pól
+NN->Solver: tablica wartości pól
+
+alt Sukces
+Solver->API: tablica z rozwiązaniem
+API->GUI: odpowiedź z tablicą z rozwiązaniem
+deactivate GUI
+GUI->User: graficzna reprezentacja rozwiązania
+end
+
+alt Brak rozwiązania / Błąd
+Solver->API: "null"
+API->GUI: wysłanie informacji o blędzie
+deactivate GUI
+GUI->User:wyświetlenie błędu
+end
+
+@enduml
