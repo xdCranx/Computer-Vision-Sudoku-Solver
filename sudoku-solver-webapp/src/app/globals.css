@@ -37,7 +37,7 @@ body {
   background-color: var(--background-light);
   border: 2px solid var(--primary-light); /* Border for each cell */
   box-sizing: border-box; /* Ensure borders are included in the cell size */
-  font-size: 1.2rem;
+  font-size: 3rem;
 }
 
 .dropzone {

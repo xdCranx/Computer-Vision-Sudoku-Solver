@@ -7,9 +7,6 @@ interface SudokuDisplayProps {
 }
 
 const SudokuDisplay: React.FC<SudokuDisplayProps> = ({ grid }) => {
-  const [sudokuGrid, setSudokuGrid] = React.useState(grid);
-
-  
   return (
     <div className="sudoku-grid">
       {grid.map((row, rowIndex) => {
