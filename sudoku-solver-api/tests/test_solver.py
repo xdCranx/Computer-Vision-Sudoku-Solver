@@ -3,7 +3,7 @@ from app.utils import load_sudoku
 import pytest
 import numpy as np
 
-puzzles, solutions = load_sudoku.from_csv("sudoku.csv", 10)
+puzzles, solutions = load_sudoku.from_csv("./sudoku-solver-api/sudoku.csv", 10)
 
 
 @pytest.mark.parametrize(

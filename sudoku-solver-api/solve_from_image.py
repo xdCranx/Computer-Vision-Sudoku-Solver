@@ -1,5 +1,7 @@
 import sys
 import app.utils as utils
+from app.utils.load_photo import loadPhoto
+from app.utils.print_sudoku_board import printSudokuBoard
 from app.detect_and_solve import detectAndSolve
 
 
@@ -15,10 +17,10 @@ def solveFromImage(image_path, solverMode=1, debug=False):
             2 - Use the linear programming solver.
         debug (bool, optional): Whether to display every step of the process.
     """
-    puzzle_image = utils.loadPhoto(image_path)
+    puzzle_image = loadPhoto(image_path)
     solved = detectAndSolve(puzzle_image, solverMode, debug)
 
-    utils.printSudokuBoard(solved)
+    printSudokuBoard(solved)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 import cv2
 import app.image as image
 import app.utils as utils
+from app.utils.print_sudoku_board import printSudokuBoard
 import app.solver as solver
 
 
@@ -53,7 +54,7 @@ def detectAndSolve(img, solverMode=1, debug=False):
             cv2.imshow("masked_grid", masked_grid)
             cv2.imshow("clean_sudoku", image.utils.sudokuFromCells(clean_cells))
             print("Recognized Digits:")
-            utils.printSudokuBoard(puzzle)
+            printSudokuBoard(puzzle)
             cv2.waitKey(0)
             cv2.destroyAllWindows()
 

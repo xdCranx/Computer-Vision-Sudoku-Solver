@@ -19,7 +19,7 @@ def loaded_image(img_path):
     "img_path, solution",
     [
         (
-            "./sudoku_images/puzzle1.jpeg",
+            "./sudoku-solver-api/sudoku_images/puzzle1.jpeg",
             np.array(
                 [
                     [0, 0, 0, 9, 0, 0, 0, 4, 0],
@@ -35,7 +35,7 @@ def loaded_image(img_path):
             ),
         ),
         (
-            "./sudoku_images/puzzle2.jpeg",
+            "./sudoku-solver-api/sudoku_images/puzzle2.jpeg",
             np.array(
                 [
                     [5, 0, 6, 0, 0, 2, 0, 9, 0],
@@ -53,5 +53,7 @@ def loaded_image(img_path):
     ],
 )
 def test_recognize_sudoku(loaded_image, img_path, solution):
+    import os
+    print(os.getcwd())
     solved = recognizeSudoku(loaded_image)
     np.testing.assert_array_equal(solved, solution)

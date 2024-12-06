@@ -16,7 +16,7 @@ def loaded_image(img_path):
     "img_path, solution",
     [
         (
-            "./sudoku_images/puzzle1.jpeg",
+            "./sudoku-solver-api/sudoku_images/puzzle1.jpeg",
             np.array(
                 [
                     [1, 3, 2, 9, 7, 8, 5, 4, 6],
@@ -32,7 +32,7 @@ def loaded_image(img_path):
             ),
         ),
         (
-            "./sudoku_images/puzzle2.jpeg",
+            "./sudoku-solver-api/sudoku_images/puzzle2.jpeg",
             np.array(
                 [
                     [5, 3, 6, 1, 4, 2, 8, 9, 7],
