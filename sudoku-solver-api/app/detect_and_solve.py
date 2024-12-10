@@ -1,8 +1,10 @@
+from tracemalloc import start
 import cv2
 import app.image as image
 import app.utils as utils
 from app.utils.print_sudoku_board import printSudokuBoard
 import app.solver as solver
+import time
 
 
 def detectAndSolve(img, solverMode=1, debug=False):
@@ -36,15 +38,18 @@ def detectAndSolve(img, solverMode=1, debug=False):
         clean_cells = image.cleanCells(cells)
         recognized_digits = image.recognizeDigits(clean_cells)
         puzzle = image.utils.convertTo2D(recognized_digits)
+        start = time.time()
         if solverMode == 0:
-            solved = solver.solve(puzzle.copy())
+            solved = puzzle.copy() 
+            solver.solve(solved)
         elif solverMode == 1:
             solved = solver.cpSolve(puzzle.copy())
         elif solverMode == 2:
             solved = solver.lpSolve(puzzle.copy())
         else:
             raise ValueError("Invalid solver mode")
-
+        end = time.time()
+        print(f"Time taken to solve: {end - start:.4f}s")
         if debug:
             cv2.imshow("grey", grey)
             cv2.imshow("sudoku_box", sudoku_box)

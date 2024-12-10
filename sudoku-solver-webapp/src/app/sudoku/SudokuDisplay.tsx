@@ -3,7 +3,7 @@
 import React from "react";
 
 interface SudokuDisplayProps {
-  grid: number[][]; // 9x9 grid of numbers, with 0 representing empty cells
+  grid: number[][];
 }
 
 const SudokuDisplay: React.FC<SudokuDisplayProps> = ({ grid }) => {
@@ -11,7 +11,6 @@ const SudokuDisplay: React.FC<SudokuDisplayProps> = ({ grid }) => {
     <div className="sudoku-grid">
       {grid.map((row, rowIndex) => {
         return row.map((cell, colIndex) => {
-          // Apply thicker borders for cells on the edges of 3x3 subgrids
           const isRightBorder = colIndex % 3 === 2 && colIndex !== 8;
           const isBottomBorder = rowIndex % 3 === 2 && rowIndex !== 8;
 
