@@ -23,6 +23,7 @@ const DropzoneUploader: React.FC<DropzoneUploaderProps> = ({
     reader.onload = async () => {
       const base64Data = (reader.result as string).split(",")[1];
       setLoading(true);
+      console.time("upload");
       try {
         const response = await fetch("http://localhost:8000/sudoku", {
           method: "POST",
@@ -34,6 +35,7 @@ const DropzoneUploader: React.FC<DropzoneUploaderProps> = ({
         });
 
         const result = await response.json();
+        console.timeEnd("upload");
         setSudoku(result);
         setUploadMessage(result.message || undefined);
       } catch (error) {
